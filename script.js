@@ -1,5 +1,5 @@
 // Khởi tạo biến
-const startDate = new Date("2025-04-11");
+const startDate = new Date("2023-03-12");
 const music = document.getElementById('bgMusic');
 const musicToggle = document.getElementById('musicToggle');
 let musicPlaying = false;
