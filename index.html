@@ -611,6 +611,12 @@
           <div class="gallery-desc">Mặc dù trời mưa nhma là 1 trong những ngày hạnh phúc nhất của anh luôn á hehe</div>
         </div>
       </div>
+      <div class="gallery-slide" style="background-image: url('15.jpg');">
+        <div class="gallery-caption">
+          <div class="gallery-title">Hồi anh crush em nè</div>
+          <div class="gallery-desc">Ngày coi 100 lần mà vẫn chưa biết cuốn ở đâu luôn</div>
+        </div>
+      </div>
     </div>
     
     <div class="countdown-container">
@@ -666,12 +672,12 @@
     let isPaused = false;
 
     const quotes = [
-      { text: "Mặt trời mang đến ánh sáng cho trái đất còn em thì mang ánh sáng đến cho anh", author: "Anh mập" },
+    { text: "Mặt trời mang đến ánh sáng cho trái đất còn em thì mang ánh sáng đến cho anh", author: "Anh mập" },
       { text: "Em có biết không tình yêu không phải là tìm một người hoàn hảo, mà là học cách nhìn một người không hoàn hảo một cách hoàn hảo.", author: "Gấu trúc đạo lí" },
       { text: "Tình yêu thực sự bắt đầu khi không còn gì để nhận, chỉ còn lại những gì có thể cho đi.", author: "Anh nghe nói là vậy" },
-      { text: "Em đã dạy anh cách để yêu 2 năm rùi, bây giờ em sẽ được iu như những công chúa thật sự", author:"Người có thể vì em làm bất cứ điều gì"},
-      { text: "Mặc dù anh hong phải là người tốt nhất nhma anh chắc chắn anh luôn iu thương em nhất", author:"Người thương em hơn bản thân mình"},
-      { text: "Em có biết em là cả thế giới của anh không, anh luôn muốn những gì tốt nhất cho em", author: "Người chỉ có mình em"},
+      { text: "Em đã dạy anh cách để yêu 2 năm rùi, bây giờ em sẽ được iu như những công chúa thật sự", author:"Anh iu công chúa của anh lắm á"},
+      { text: "Mặc dù anh hong phải là người tốt nhất nhma anh chắc chắn anh luôn iu thương em nhất", author:"Em iu bản thân chỉ thứ 2 thui, anh iu em nhiều hơn"},
+      { text: "Em có biết em là cả thế giới của anh không, anh luôn muốn những gì tốt nhất cho em", author: "Anh nói thiệt luôn ó"},
       { text: "Anh hong chắc em có còn muốn tiếp tục iu anh hong nhma còn cơ hội thì cứ thử thôi hi", author: "Sadboy chiyeuminhem"},
       { text: "Lúc trước anh là gánh nặng cho em thì bây giờ anh sẽ gánh mọi cái đè nặng trên vai em", author: "Hong phải superman nhưng vẫn bảo vệ thế giới của mình"},
       { text: "Em đúng tệ luôn á, có gì cứ giấu 1 mình hong hà, tại sao lại hong nói với người mình iu chứ, iu nhau phải chia sẻ chứ", author:"Em thấy ghét"},
@@ -688,7 +694,6 @@
 
       gallerySlides[0].classList.add('active');
       
-
       slideInterval = setInterval(() => {
         if (!isPaused) {
           nextSlide();
@@ -709,66 +714,51 @@
       });
     }
 
-  //   function nextSlide() {
-  //     // if (gallerySlides.length === 0) return;
-  //     // gallerySlides[currentSlide].classList.remove('active');
-  //     // currentSlide = (currentSlide + 1) % gallerySlides.length;
-  //     // gallerySlides[currentSlide].classList.add('active');
+    // function nextSlide() {
+    //   if (gallerySlides.length === 0) return;
+    //   gallerySlides[currentSlide].classList.remove('active');
+    //   currentSlide = (currentSlide + 1) % gallerySlides.length;
+    //   gallerySlides[currentSlide].classList.add('active');
+    // }
+
+    // function changeQuote() {
+    //   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    //   const quoteElement = document.getElementById('quote');
+    //   const authorElement = document.getElementById('quoteAuthor');
       
-  //     // changeQuote();
-  //     if (gallerySlides.length === 0) return;
-  
-  // // Bắt đầu fade quote trước
-  //     const quoteElement = document.getElementById('quote');
-  //     const authorElement = document.getElementById('quoteAuthor');
-  
-  //    quoteElement.style.opacity = 0;
-  // authorElement.style.opacity = 0;
-  
-  // // Chuyển slide cùng lúc
-  // gallerySlides[currentSlide].classList.remove('active');
-  // currentSlide = (currentSlide + 1) % gallerySlides.length;
-  // gallerySlides[currentSlide].classList.add('active');
-  
-  // // Đợi slide transition xong rồi mới hiện quote mới
-  // setTimeout(() => {
-  //   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-  //   quoteElement.textContent = randomQuote.text;
-  //   authorElement.textContent = randomQuote.author;
-  //   quoteElement.style.opacity = 1;
-  //   authorElement.style.opacity = 1;
-  // }, 800); // Khớp với CSS transition
-  //   }
-  // Thêm biến này ở đầu file (ngoài function)
-let currentQuoteIndex = 0;
+    //   quoteElement.style.opacity = 0;
+    //   authorElement.style.opacity = 0;
+      
+    //   setTimeout(() => {
+    //     quoteElement.textContent = randomQuote.text;
+    //     authorElement.textContent = randomQuote.author;
+    //     quoteElement.style.opacity = 1;
+    //     authorElement.style.opacity = 1;
+    //   }, 700); // Thời gian fade
+    // }
 
-function nextSlide() {
-  if (gallerySlides.length === 0) return;
-
-  // Bắt đầu fade quote trước
+    function changeQuote(index) {
   const quoteElement = document.getElementById('quote');
   const authorElement = document.getElementById('quoteAuthor');
+  const quote = quotes[index % quotes.length];
 
   quoteElement.style.opacity = 0;
   authorElement.style.opacity = 0;
 
-  // Chuyển slide cùng lúc
+  setTimeout(() => {
+    quoteElement.textContent = quote.text;
+    authorElement.textContent = quote.author;
+    quoteElement.style.opacity = 1;
+    authorElement.style.opacity = 1;
+  }, 700);
+}
+function nextSlide() {
+  if (gallerySlides.length === 0) return;
   gallerySlides[currentSlide].classList.remove('active');
   currentSlide = (currentSlide + 1) % gallerySlides.length;
   gallerySlides[currentSlide].classList.add('active');
 
-  // Đợi slide transition xong rồi mới hiện quote mới
-  setTimeout(() => {
-    // Thay đổi từ random sang theo thứ tự
-    const currentQuote = quotes[currentQuoteIndex];
-    quoteElement.textContent = currentQuote.text;
-    authorElement.textContent = currentQuote.author;
-    quoteElement.style.opacity = 1;
-    authorElement.style.opacity = 1;
-    
-    // Chuyển sang quote tiếp theo
-    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
-  }, 500);
+  changeQuote(currentSlide); // Quote đi theo slide
 }
 
     function closeFullscreenViewer() {
@@ -879,21 +869,7 @@ function nextSlide() {
       }
     }
 
-    // function changeQuote() {
-    //   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-    //   const quoteElement = document.getElementById('quote');
-    //   const authorElement = document.getElementById('quoteAuthor');
-      
-    //   quoteElement.style.opacity = 0;
-    //   authorElement.style.opacity = 0;
-      
-    //   setTimeout(() => {
-    //     quoteElement.textContent = randomQuote.text;
-    //     authorElement.textContent = randomQuote.author;
-    //     quoteElement.style.opacity = 1;
-    //     authorElement.style.opacity = 1;
-    //   }, 500); // Thời gian fade
-    // }
+   
 
     function toggleMusic() {
       if (music.paused) { // Kiểm tra trạng thái paused của audio element

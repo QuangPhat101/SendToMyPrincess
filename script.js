@@ -6,15 +6,34 @@ let musicPlaying = false;
 
 // Các câu quote tình yêu
 const quotes = [
-  { 
-    text: "Mặt trời mang đến ánh sáng cho trái đất còn em thì mang ánh sáng đến cho anh",
-    author: "Anh mập" 
+  {
+    text: "Tình yêu không phải là tìm một người hoàn hảo, mà là học cách nhìn một người không hoàn hảo một cách hoàn hảo.",
+    author: "Sam Keen"
   },
-  { text: "Em có biết không tình yêu không phải là tìm một người hoàn hảo, mà là học cách nhìn một người không hoàn hảo một cách hoàn hảo.", author: "Gấu trúc đạo lí" },
-  { text: "Tình yêu thực sự bắt đầu khi không còn gì để nhận, chỉ còn lại những gì có thể cho đi.", author: "Anh nghe nói là vậy" },
-  { text: "Em đã dạy anh cách để yêu 2 năm rùi, bây giờ em sẽ được iu như những công chúa thật sự", author:"Người có thể vì em làm bất cứ điều gì"},
-  { text: "Mặc dù anh hong phải là người tốt nhất nhma anh chắc chắn anh luôn iu thương em nhất", author:"Người thương em hơn bản thân mình"},
-  { text: "Em có biết em là cả thế giới của anh không, anh luôn muốn những gì tốt nhất cho em", author: "Người chỉ có mình em"}
+  {
+    text: "Yêu không phải là nhìn nhau mà là cùng nhìn về một hướng.",
+    author: "Antoine de Saint-Exupéry"
+  },
+  {
+    text: "Tình yêu thực sự bắt đầu khi không còn gì để nhận, chỉ còn lại những gì có thể cho đi.",
+    author: "Khuyết danh"
+  },
+  {
+    text: "Tình yêu là khi hạnh phúc của người khác trở thành hạnh phúc của chính bạn.",
+    author: "Voltaire"
+  },
+  {
+    text: "Yêu nhau là cùng nhau viết nên một câu chuyện đẹp, trang nào cũng ngọt ngào, chương nào cũng hạnh phúc.",
+    author: "Khuyết danh"
+  },
+  {
+    text: "Trong tình yêu, sự im lặng đáng sợ hơn cả sự giận dữ.",
+    author: "La Rochefoucauld"
+  },
+  {
+    text: "Tình yêu không có tuổi, nó luôn luôn được sinh ra.",
+    author: "Blaise Pascal"
+  }
 ];
 
 // Cập nhật bộ đếm thời gian

@@ -275,6 +275,3 @@ body {
     font-size: 1rem;
   }
 }
-#quote, #quoteAuthor {
-  transition: opacity 0.8s ease; /* Tăng từ 0.5s lên 0.8s */
-}
