@@ -671,7 +671,16 @@
       { text: "Tình yêu thực sự bắt đầu khi không còn gì để nhận, chỉ còn lại những gì có thể cho đi.", author: "Anh nghe nói là vậy" },
       { text: "Em đã dạy anh cách để yêu 2 năm rùi, bây giờ em sẽ được iu như những công chúa thật sự", author:"Người có thể vì em làm bất cứ điều gì"},
       { text: "Mặc dù anh hong phải là người tốt nhất nhma anh chắc chắn anh luôn iu thương em nhất", author:"Người thương em hơn bản thân mình"},
-      { text: "Em có biết em là cả thế giới của anh không, anh luôn muốn những gì tốt nhất cho em", author: "Người chỉ có mình em"}
+      { text: "Em có biết em là cả thế giới của anh không, anh luôn muốn những gì tốt nhất cho em", author: "Người chỉ có mình em"},
+      { text: "Anh hong chắc em có còn muốn tiếp tục iu anh hong nhma còn cơ hội thì cứ thử thôi hi", author: "Sadboy chiyeuminhem"},
+      { text: "Lúc trước anh là gánh nặng cho em thì bây giờ anh sẽ gánh mọi cái đè nặng trên vai em", author: "Hong phải superman nhưng vẫn bảo vệ thế giới của mình"},
+      { text: "Em đúng tệ luôn á, có gì cứ giấu 1 mình hong hà, tại sao lại hong nói với người mình iu chứ, iu nhau phải chia sẻ chứ", author:"Em thấy ghét"},
+      { text: "Có lẽ em nói đúng, anh chưa từng hi sinh vì người khác. Nên từ giờ anh sẽ làm cho em suy nghĩ lại", author:"Anh hứa đó"},
+      { text: "Anh hong biết em có thấy anh sến hong nữa nhma anh hi vọng em sẽ vui hêhe", author:"Phải vui chứ hong vui là anh bùn đó"},
+      { text: "Thiệt sự thì đó giờ anh hong đủ trân trọng tình cảm của em và sự quan trọng của em với anh", author:"Anh xin lỗi anh hối hận lắm rùi"},
+      { text: "Em biết lúc em nói chia tay anh bùn lắm hong. Anh bùn vì đối xử với em tệ quá", author:"Anh rất xin lũi em"},
+      { text: "2 năm qua là 2 năm hạnh phúc nhất của anh luôn á, từ khi em đến là cuộc đời nhạt nhẽo của anh nó khác hẳn đi luôn á", author:"Anh cảm ơn em nhiều lắm lắm"},
+      { text: "Anh nợ em 1 lời tỏ tình thật sự nên là anh sẽ trả nó trong tương lai khi em sẵn sàng nha", author: "Anh iu emmmmmmm"}
     ];
 
     function initGallery() {
@@ -679,11 +688,12 @@
 
       gallerySlides[0].classList.add('active');
       
+
       slideInterval = setInterval(() => {
         if (!isPaused) {
           nextSlide();
         }
-      }, 3000); // Thời gian chuyển slide
+      }, 5000); // Thời gian chuyển slide
       
       gallerySlides.forEach(slide => {
         slide.addEventListener('click', function() {
@@ -699,12 +709,67 @@
       });
     }
 
-    function nextSlide() {
-      if (gallerySlides.length === 0) return;
-      gallerySlides[currentSlide].classList.remove('active');
-      currentSlide = (currentSlide + 1) % gallerySlides.length;
-      gallerySlides[currentSlide].classList.add('active');
-    }
+  //   function nextSlide() {
+  //     // if (gallerySlides.length === 0) return;
+  //     // gallerySlides[currentSlide].classList.remove('active');
+  //     // currentSlide = (currentSlide + 1) % gallerySlides.length;
+  //     // gallerySlides[currentSlide].classList.add('active');
+      
+  //     // changeQuote();
+  //     if (gallerySlides.length === 0) return;
+  
+  // // Bắt đầu fade quote trước
+  //     const quoteElement = document.getElementById('quote');
+  //     const authorElement = document.getElementById('quoteAuthor');
+  
+  //    quoteElement.style.opacity = 0;
+  // authorElement.style.opacity = 0;
+  
+  // // Chuyển slide cùng lúc
+  // gallerySlides[currentSlide].classList.remove('active');
+  // currentSlide = (currentSlide + 1) % gallerySlides.length;
+  // gallerySlides[currentSlide].classList.add('active');
+  
+  // // Đợi slide transition xong rồi mới hiện quote mới
+  // setTimeout(() => {
+  //   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+  //   quoteElement.textContent = randomQuote.text;
+  //   authorElement.textContent = randomQuote.author;
+  //   quoteElement.style.opacity = 1;
+  //   authorElement.style.opacity = 1;
+  // }, 800); // Khớp với CSS transition
+  //   }
+  // Thêm biến này ở đầu file (ngoài function)
+let currentQuoteIndex = 0;
+
+function nextSlide() {
+  if (gallerySlides.length === 0) return;
+
+  // Bắt đầu fade quote trước
+  const quoteElement = document.getElementById('quote');
+  const authorElement = document.getElementById('quoteAuthor');
+
+  quoteElement.style.opacity = 0;
+  authorElement.style.opacity = 0;
+
+  // Chuyển slide cùng lúc
+  gallerySlides[currentSlide].classList.remove('active');
+  currentSlide = (currentSlide + 1) % gallerySlides.length;
+  gallerySlides[currentSlide].classList.add('active');
+
+  // Đợi slide transition xong rồi mới hiện quote mới
+  setTimeout(() => {
+    // Thay đổi từ random sang theo thứ tự
+    const currentQuote = quotes[currentQuoteIndex];
+    quoteElement.textContent = currentQuote.text;
+    authorElement.textContent = currentQuote.author;
+    quoteElement.style.opacity = 1;
+    authorElement.style.opacity = 1;
+    
+    // Chuyển sang quote tiếp theo
+    currentQuoteIndex = (currentQuoteIndex + 1) % quotes.length;
+  }, 500);
+}
 
     function closeFullscreenViewer() {
       imageViewer.classList.remove('active');
@@ -814,21 +879,21 @@
       }
     }
 
-    function changeQuote() {
-      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-      const quoteElement = document.getElementById('quote');
-      const authorElement = document.getElementById('quoteAuthor');
+    // function changeQuote() {
+    //   const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+    //   const quoteElement = document.getElementById('quote');
+    //   const authorElement = document.getElementById('quoteAuthor');
       
-      quoteElement.style.opacity = 0;
-      authorElement.style.opacity = 0;
+    //   quoteElement.style.opacity = 0;
+    //   authorElement.style.opacity = 0;
       
-      setTimeout(() => {
-        quoteElement.textContent = randomQuote.text;
-        authorElement.textContent = randomQuote.author;
-        quoteElement.style.opacity = 1;
-        authorElement.style.opacity = 1;
-      }, 500); // Thời gian fade
-    }
+    //   setTimeout(() => {
+    //     quoteElement.textContent = randomQuote.text;
+    //     authorElement.textContent = randomQuote.author;
+    //     quoteElement.style.opacity = 1;
+    //     authorElement.style.opacity = 1;
+    //   }, 500); // Thời gian fade
+    // }
 
     function toggleMusic() {
       if (music.paused) { // Kiểm tra trạng thái paused của audio element
