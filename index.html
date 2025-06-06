@@ -1,0 +1,881 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>INLOVE💟</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Montserrat:wght@400;600;700&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  <style>
+    :root {
+      --primary: #ff4d6d;
+      --secondary: #ff8fa3;
+      --accent: #ffb3c1;
+      --dark: #590d22;
+      --light: #fff0f3;
+      --text: #2b2d42;
+      --highlight: #ff758f;
+      --shadow: rgba(89, 13, 34, 0.3);
+      --scorpio: #8b008b;
+      --sagittarius: #4169e1;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Montserrat', sans-serif;
+      background: linear-gradient(135deg, var(--light), var(--accent));
+      color: var(--text);
+      height: 100vh;
+      overflow: hidden;
+      position: relative;
+      aspect-ratio: 9/16; /* Giữ tỷ lệ khung hình cho mobile-first */
+      max-width: 100%; /* Đảm bảo không vượt quá chiều rộng màn hình */
+      margin: 0 auto; /* Căn giữa nếu có max-width */
+    }
+
+    .app-container {
+      width: 100%;
+      height: 100%;
+      max-width: 100%; /* Đảm bảo app-container chiếm toàn bộ body */
+      margin: 0 auto;
+      padding: 15px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      z-index: 1;
+      overflow: hidden; /* Ngăn nội dung tràn ra ngoài */
+    }
+
+    /* Header styles */
+    .header {
+      text-align: center;
+      margin-bottom: 15px;
+      z-index: 2;
+    }
+
+    .couple-name {
+      font-family: 'Pacifico', cursive;
+      font-size: 1.8rem;
+      color: var(--dark);
+      margin-bottom: 8px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .zodiac-info {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 10px;
+    }
+
+    .zodiac-card {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 12px;
+      padding: 8px 12px;
+      box-shadow: 0 4px 12px var(--shadow);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      text-align: center;
+      min-width: 100px;
+      animation: zoomIn 0.8s ease-out;
+    }
+
+    .zodiac-card.scorpio {
+      border-bottom: 3px solid var(--scorpio);
+    }
+
+    .zodiac-card.sagittarius {
+      border-bottom: 3px solid var(--sagittarius);
+    }
+
+    .zodiac-name {
+      font-weight: 700;
+      margin-bottom: 3px;
+      font-size: 0.8rem;
+    }
+
+    .zodiac-sign {
+      font-size: 1.2rem;
+    }
+
+    .zodiac-date {
+      font-size: 0.7rem;
+      color: var(--text);
+    }
+
+    .love-date {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text);
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .highlight {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Gallery styles */
+    .gallery-container {
+      flex: 1;
+      position: relative;
+      margin: 10px 0;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px var(--shadow);
+      animation: fadeIn 1s ease-out;
+      min-height: 200px; /* Đảm bảo gallery có chiều cao tối thiểu */
+    }
+
+    .gallery-slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0;
+      transition: all 1s ease-in-out;
+      transform: scale(0.9);
+      background-size: cover;
+      background-position: center;
+      border-radius: 20px;
+    }
+
+    .gallery-slide.active {
+      opacity: 1;
+      transform: scale(1);
+      z-index: 1;
+    }
+
+    .gallery-slide.paused {
+      animation-play-state: paused !important; /* Đảm bảo pause hoạt động */
+    }
+
+    .gallery-slide::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 40%;
+      background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+      border-radius: 0 0 20px 20px;
+    }
+
+    .gallery-caption {
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      right: 20px;
+      color: white;
+      z-index: 2;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.5s ease-out;
+    }
+
+    .gallery-slide.active .gallery-caption {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .gallery-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 5px;
+      font-family: 'Pacifico', cursive;
+    }
+
+    .gallery-desc {
+      font-size: 0.9rem;
+    }
+
+    /* Countdown styles */
+    .countdown-container {
+      margin: 10px 0;
+      z-index: 2;
+    }
+
+    .countdown-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      padding: 15px 10px;
+      box-shadow: 0 8px 25px var(--shadow);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .countdown-box::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 0%,
+        rgba(255, 255, 255, 0.3) 50%,
+        transparent 100%
+      );
+      transform: rotate(30deg);
+      animation: shine 6s infinite;
+    }
+
+    .time-unit {
+      text-align: center;
+      flex: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .time-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+      line-height: 1;
+      margin-bottom: 3px;
+      transition: all 0.3s;
+    }
+
+    .time-label {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .time-separator {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: 0 3px;
+      align-self: flex-end; /* Căn chỉnh dấu hai chấm */
+      padding-bottom: 10px; /* Điều chỉnh vị trí dấu : */
+    }
+
+    /* Quote styles */
+    .quote-container {
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 15px;
+      padding: 15px;
+      margin-top: 10px;
+      box-shadow: 0 5px 20px var(--shadow);
+      backdrop-filter: blur(5px);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      position: relative;
+      overflow: hidden;
+      z-index: 2;
+    }
+
+    .quote-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--scorpio), var(--sagittarius));
+    }
+
+    .quote {
+      font-size: 1rem;
+      font-style: italic;
+      color: var(--text);
+      line-height: 1.4;
+      margin-bottom: 8px;
+      font-family: 'Dancing Script', cursive;
+      transition: opacity 0.5s ease-in-out; /* Thêm transition cho quote text */
+    }
+
+    .quote-author {
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--primary);
+      text-align: right;
+      transition: opacity 0.5s ease-in-out; /* Thêm transition cho quote author */
+    }
+
+    /* Music control */
+    .music-control {
+      position: absolute;
+      top: 15px;
+      right: 15px;
+      z-index: 10;
+    }
+
+    #musicToggle {
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--primary);
+      cursor: pointer;
+      box-shadow: 0 3px 10px var(--shadow);
+      transition: all 0.3s;
+    }
+
+    #musicToggle:hover {
+      transform: scale(1.1);
+      background: white;
+    }
+
+    /* Fullscreen image viewer */
+    .image-viewer {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 100;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease-out;
+    }
+
+    .image-viewer.active {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .image-viewer img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 10px;
+      box-shadow: 0 5px 30px rgba(0,0,0,0.5);
+      transform: scale(0.9);
+      transition: transform 0.3s ease-out;
+    }
+
+    .image-viewer.active img {
+      transform: scale(1);
+    }
+
+    .close-viewer {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: white;
+      font-size: 2rem;
+      cursor: pointer;
+      text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+    }
+
+    /* Background effects */
+    .sparkles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .sparkle {
+      position: absolute;
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      opacity: 0;
+      animation: sparkle 3s infinite; /* Giữ nguyên animation */
+      box-shadow: 0 0 10px 2px white;
+    }
+
+    /* Xóa hoặc comment out CSS cho .floating-hearts và .heart nếu không dùng */
+    /*
+    .floating-hearts {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      transform: rotate(45deg);
+      animation: float 6s linear infinite;
+      opacity: 0.7;
+    }
+
+    .heart:before, .heart:after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: var(--primary);
+      border-radius: 50%;
+    }
+
+    .heart:before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart:after {
+      left: -10px;
+      top: 0;
+    }
+    */
+
+    /* Animations */
+    @keyframes shine {
+      0% { transform: rotate(30deg) translate(-30%, -30%); }
+      100% { transform: rotate(30deg) translate(30%, 30%); }
+    }
+
+    @keyframes sparkle {
+      0% {
+        transform: scale(0) translateY(0); /* Thêm translateY để đa dạng chuyển động */
+        opacity: 0;
+      }
+      50% {
+        transform: scale(1.2) translateY(-20px); /* Thêm translateY */
+        opacity: 0.8;
+      }
+      100% {
+        transform: scale(0) translateY(-40px); /* Thêm translateY */
+        opacity: 0;
+      }
+    }
+
+    /* Xóa hoặc comment out @keyframes float nếu không dùng */
+    /*
+    @keyframes float {
+      0% {
+        transform: translateY(100vh) rotate(45deg) scale(0.8);
+        opacity: 0;
+      }
+      50% {
+        opacity: 0.7;
+      }
+      100% {
+        transform: translateY(-20vh) rotate(45deg) scale(1.2);
+        opacity: 0;
+      }
+    }
+    */
+    
+    @keyframes pulse {
+      from { transform: scale(1); }
+      to { transform: scale(1.05); }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 400px) {
+      .couple-name { font-size: 1.5rem; }
+      .time-value { font-size: 1.8rem; }
+      .quote { font-size: 0.9rem; }
+      .zodiac-info { flex-direction: column; align-items: center; gap: 8px; }
+      .zodiac-card { width: 100%; max-width: 180px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app-container animate__animated animate__fadeIn">
+    <div class="music-control">
+      <button id="musicToggle">🎵</button>
+    </div>
+    
+    <div class="header">
+      <h1 class="couple-name">Minh Quân & Thùy Trang</h1>
+      <div class="zodiac-info">
+        <div class="zodiac-card scorpio">
+          <div class="zodiac-name">Bọ Cạp - Nam</div>
+          <div class="zodiac-sign">♏</div>
+          <div class="zodiac-date">25/10/2006</div>
+        </div>
+        <div class="zodiac-card sagittarius">
+          <div class="zodiac-name">Nhân Mã - Nữ</div>
+          <div class="zodiac-sign">♐</div>
+          <div class="zodiac-date">29/11/2006</div>
+        </div>
+      </div>
+      <div class="love-date">Bắt đầu yêu nhau từ <span class="highlight">11/04/2025</span></div>
+    </div>
+    
+    <div class="gallery-container">
+      <div class="gallery-slide" style="background-image: url('picture1.jpg');">
+        <div class="gallery-caption">
+          <div class="gallery-title">Khoảnh khắc đầu tiên</div>
+          <div class="gallery-desc">Ngày chúng ta gặp nhau lần đầu</div>
+        </div>
+      </div>
+      <div class="gallery-slide" style="background-image: url('picture2.jpg');">
+        <div class="gallery-caption">
+          <div class="gallery-title">Cùng nhau dạo phố</div>
+          <div class="gallery-desc">Những buổi chiều lang thang khắp phố phường</div>
+        </div>
+      </div>
+      <div class="gallery-slide" style="background-image: url('picture3.jpg');">
+        <div class="gallery-caption">
+          <div class="gallery-title">Kỷ niệm đáng nhớ</div>
+          <div class="gallery-desc">Ngày chúng ta có những kỷ niệm không thể quên</div>
+        </div>
+      </div>
+      <div class="gallery-slide" style="background-image: url('picture4.jpg');">
+        <div class="gallery-caption">
+          <div class="gallery-title">Hạnh phúc bên nhau</div>
+          <div class="gallery-desc">Mỗi khoảnh khắc bên em là niềm hạnh phúc</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="countdown-container">
+      <div class="countdown-box">
+        <div class="time-unit">
+          <div class="time-value" id="years">0</div>
+          <div class="time-label">Năm</div>
+        </div>
+        <div class="time-separator">:</div>
+        <div class="time-unit">
+          <div class="time-value" id="months">0</div>
+          <div class="time-label">Tháng</div>
+        </div>
+        <div class="time-separator">:</div>
+        <div class="time-unit">
+          <div class="time-value" id="days">0</div>
+          <div class="time-label">Ngày</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="quote-container">
+      <div class="quote" id="quote"></div>
+      <div class="quote-author" id="quoteAuthor"></div>
+    </div>
+  </div>
+  
+  <div class="image-viewer">
+    <span class="close-viewer">×</span>
+    <img id="viewerImage" src="" alt="Xem ảnh lớn">
+  </div>
+  
+  <div class="sparkles-container" id="sparkles"></div>
+  <audio id="bgMusic" loop>
+    <source src="filenhac.mp3" type="audio/mpeg">
+    Trình duyệt của bạn không hỗ trợ phát âm thanh.
+  </audio>
+  
+  <script>
+    const startDate = new Date("2025-04-11T00:00:00"); // Thêm giờ để chính xác hơn
+    const music = document.getElementById('bgMusic');
+    const musicToggle = document.getElementById('musicToggle');
+    const gallerySlides = document.querySelectorAll('.gallery-slide');
+    const imageViewer = document.querySelector('.image-viewer');
+    const viewerImage = document.getElementById('viewerImage');
+    const closeViewer = document.querySelector('.close-viewer');
+    const sparklesContainer = document.getElementById('sparkles');
+    // const floatingHearts = document.querySelector('.floating-hearts'); // Vô hiệu hóa nếu không dùng
+    
+    let currentSlide = 0;
+    let musicPlaying = false; // Mặc định là false cho đến khi người dùng tương tác hoặc autoplay thành công
+    let slideInterval;
+    let isPaused = false;
+
+    const quotes = [
+      { text: "Tình yêu giữa Bọ Cạp và Nhân Mã là sự kết hợp hoàn hảo giữa chiều sâu và tự do.", author: "Horoscope Love" },
+      { text: "Minh Quân ♏ và Thùy Trang ♐ - Một cặp đôi với tình yêu mãnh liệt và đam mê không giới hạn.", author: "Chuyên gia chiêm tinh" },
+      { text: "Bọ Cạp mang đến sự bí ẩn, Nhân Mã mang đến ánh sáng. Cùng nhau, các bạn tạo nên một vũ trụ hoàn hảo.", author: "Tình yêu hoàng đạo" },
+      { text: "Tình yêu không phải là tìm một người hoàn hảo, mà là học cách nhìn một người không hoàn hảo một cách hoàn hảo.", author: "Sam Keen" },
+      { text: "Yêu không phải là nhìn nhau mà là cùng nhìn về một hướng.", author: "Antoine de Saint-Exupery" },
+      { text: "Tình yêu thực sự bắt đầu khi không còn gì để nhận, chỉ còn lại những gì có thể cho đi.", author: "Khuyết danh" }
+    ];
+
+    function initGallery() {
+      if (gallerySlides.length === 0) return; // Không làm gì nếu không có slide
+
+      gallerySlides[0].classList.add('active');
+      
+      slideInterval = setInterval(() => {
+        if (!isPaused) {
+          nextSlide();
+        }
+      }, 3000); // Thời gian chuyển slide
+      
+      gallerySlides.forEach(slide => {
+        slide.addEventListener('click', function() {
+          const bgImage = this.style.backgroundImage;
+          if (bgImage && bgImage !== 'none') { // Chỉ mở viewer nếu có ảnh nền
+            const imgUrl = bgImage.replace('url("', '').replace('")', '');
+            viewerImage.src = imgUrl;
+            imageViewer.classList.add('active');
+            isPaused = true; // Dừng slideshow
+            // clearInterval(slideInterval); // Dừng hẳn interval hoặc chỉ pause như hiện tại
+          }
+        });
+      });
+    }
+
+    function nextSlide() {
+      if (gallerySlides.length === 0) return;
+      gallerySlides[currentSlide].classList.remove('active');
+      currentSlide = (currentSlide + 1) % gallerySlides.length;
+      gallerySlides[currentSlide].classList.add('active');
+    }
+
+    function closeFullscreenViewer() {
+      imageViewer.classList.remove('active');
+      isPaused = false; // Tiếp tục slideshow
+      // Khởi động lại interval nếu đã bị clear, hoặc dựa vào isPaused ở trên
+      // if (!slideInterval && gallerySlides.length > 0) {
+      //   slideInterval = setInterval(() => { if (!isPaused) nextSlide(); }, 3000);
+      // }
+    }
+
+    function createSparkles() {
+        // Tạo nhiều lấp lánh hơn trong một lần gọi để tăng độ phủ
+        for (let i = 0; i < 3; i++) { // Tạo 3 lấp lánh mỗi lần gọi
+            const sparkle = document.createElement('div');
+            sparkle.classList.add('sparkle');
+            
+            sparkle.style.left = Math.random() * 100 + 'vw';
+            sparkle.style.top = Math.random() * 100 + 'vh';
+            
+            const size = Math.random() * 4 + 2; // Kích thước nhỏ hơn một chút (2px đến 6px)
+            sparkle.style.width = `${size}px`;
+            sparkle.style.height = `${size}px`;
+            
+            const colors = ['#ffffff', '#ffb6c1', '#ffdae0', '#fff0f3']; // Màu sắc nhẹ nhàng hơn
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            sparkle.style.background = color;
+            sparkle.style.boxShadow = `0 0 8px 1px ${color}`; // Bóng mờ hơn
+            
+            sparkle.style.animationDelay = Math.random() * 3 + 's'; // Delay đa dạng hơn
+            sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's'; // Thời gian tồn tại đa dạng (2-4s)
+
+
+            sparklesContainer.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, parseFloat(sparkle.style.animationDuration.replace('s','')) * 1000 + parseFloat(sparkle.style.animationDelay.replace('s','')) * 1000);
+        }
+    }
+    
+    // Vô hiệu hóa hàm createHeart
+    /*
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      
+      const size = Math.random() * 15 + 10;
+      heart.style.width = `${size}px`;
+      heart.style.height = `${size}px`;
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (4 + Math.random() * 4) + 's';
+      
+      const colors = ['#ff4d6d', '#ff758f', '#ff8fa3', '#ffb3c1'];
+      const color = colors[Math.floor(Math.random() * colors.length)];
+      heart.style.background = color;
+      // heart.style.setProperty('--heart-color', color); // Không cần nếu CSS trái tim bị xóa
+      
+      // floatingHearts.appendChild(heart); // Vô hiệu hóa
+      
+      setTimeout(() => {
+        heart.remove();
+      }, 6000);
+    }
+    */
+
+    function updateCountdown() {
+      const now = new Date();
+      let diff = now - startDate;
+
+      if (diff < 0) { // Nếu ngày bắt đầu trong tương lai
+        document.getElementById('years').textContent = 0;
+        document.getElementById('months').textContent = 0;
+        document.getElementById('days').textContent = 0;
+        // Có thể hiển thị thông báo "Sắp bắt đầu" hoặc đếm ngược đến ngày đó
+        return;
+      }
+
+      let years = now.getFullYear() - startDate.getFullYear();
+      let months = now.getMonth() - startDate.getMonth();
+      let days = now.getDate() - startDate.getDate();
+      
+      if (days < 0) {
+        months--;
+        // Lấy số ngày của tháng trước đó
+        const prevMonthLastDay = new Date(now.getFullYear(), now.getMonth(), 0).getDate();
+        days += prevMonthLastDay;
+      }
+      
+      if (months < 0) {
+        years--;
+        months += 12;
+      }
+      
+      document.getElementById('years').textContent = years;
+      document.getElementById('months').textContent = months;
+      document.getElementById('days').textContent = days;
+      
+      // Hiệu ứng pulse nếu là ngày kỷ niệm (0 ngày, 0 tháng, X năm)
+      if (days === 0 && months === 0 && years >=0 ) { 
+        const countdownBox = document.querySelector('.countdown-box');
+        if (countdownBox) {
+            countdownBox.classList.add('pulse');
+            setTimeout(() => {
+                countdownBox.classList.remove('pulse');
+            }, 1000); // Thời gian hiệu ứng pulse
+        }
+      }
+    }
+
+    function changeQuote() {
+      const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+      const quoteElement = document.getElementById('quote');
+      const authorElement = document.getElementById('quoteAuthor');
+      
+      quoteElement.style.opacity = 0;
+      authorElement.style.opacity = 0;
+      
+      setTimeout(() => {
+        quoteElement.textContent = randomQuote.text;
+        authorElement.textContent = randomQuote.author;
+        quoteElement.style.opacity = 1;
+        authorElement.style.opacity = 1;
+      }, 500); // Thời gian fade
+    }
+
+    function toggleMusic() {
+      if (music.paused) { // Kiểm tra trạng thái paused của audio element
+        music.play().then(() => {
+          musicToggle.textContent = '🎵';
+          musicPlaying = true;
+        }).catch(e => {
+          console.log("Người dùng cần tương tác để phát nhạc:", e);
+          // Có thể hiển thị thông báo yêu cầu người dùng click vào nút nhạc
+          musicToggle.textContent = '🔇'; // Giữ icon là tắt nếu không play được
+          musicPlaying = false;
+        });
+      } else {
+        music.pause();
+        musicToggle.textContent = '🔇';
+        musicPlaying = false;
+      }
+    }
+
+    // Hiệu ứng click trái tim đã bị loại bỏ theo yêu cầu
+    /*
+    function createClickEffect(e) {
+      // Chỉ tạo hiệu ứng nếu click vào app-container, không phải nút nhạc hay viewer
+      if (e.target.closest('.music-control') || e.target.closest('.image-viewer')) {
+        return;
+      }
+      for (let i = 0; i < 3; i++) { // Giảm số lượng trái tim click
+        setTimeout(() => {
+          const heart = document.createElement('div');
+          heart.classList.add('heart'); // Tái sử dụng class heart (nếu CSS còn) hoặc tạo class mới
+          heart.style.position = 'fixed'; // Để vị trí theo viewport
+          heart.style.left = (e.clientX - 10) + 'px'; // Căn giữa trái tim tại điểm click
+          heart.style.top = (e.clientY - 10) + 'px';
+          heart.style.width = '20px'; // Kích thước cố định
+          heart.style.height = '20px';
+          // heart.style.setProperty('--heart-color', 'var(--primary)'); // Set màu
+          heart.style.background = 'var(--primary)';
+          
+          // Animation cho trái tim bay lên và mờ dần
+          heart.style.animation = 'float 1s ease-out forwards'; 
+          // @keyframes float cần được điều chỉnh hoặc tạo mới cho hiệu ứng này
+          // Ví dụ: @keyframes clickFloat { 0% { transform: translate(0,0) scale(0.5); opacity: 1;} 100% { transform: translate(0, -50px) scale(1); opacity: 0;} }
+          // heart.style.animationName = 'clickFloat'; // Nếu dùng animation riêng
+
+          document.body.appendChild(heart);
+          
+          setTimeout(() => {
+            heart.remove();
+          }, 1000); // Xóa sau 1s
+        }, i * 50); // Tạo cách nhau một chút
+      }
+    }
+    */
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initGallery();
+      updateCountdown();
+      setInterval(updateCountdown, 60000); // Cập nhật mỗi phút là đủ, trừ khi cần real-time giây
+      
+      changeQuote();
+      setInterval(changeQuote, 10000); // Thay quote mỗi 10 giây
+      
+      // Tăng tần suất tạo lấp lánh
+      setInterval(createSparkles, 80); // Tạo nhiều lấp lánh thường xuyên hơn (ví dụ: mỗi 80ms)
+      // setInterval(createHeart, 500); // Vô hiệu hóa
+      
+      musicToggle.addEventListener('click', toggleMusic);
+      
+      // Thử phát nhạc sau một tương tác nhỏ hoặc chờ người dùng click
+      // Chính sách autoplay của trình duyệt ngày càng khắt khe
+      // music.play().then(() => { // Bỏ tự động play ngay khi load
+      //   musicPlaying = true;
+      //   musicToggle.textContent = '🎵';
+      // }).catch(e => {
+      //   console.log("Autoplay bị chặn, chờ người dùng tương tác.", e);
+      //   musicPlaying = false;
+      //   musicToggle.textContent = '🔇';
+      // });
+
+      // document.addEventListener('click', createClickEffect); // Vô hiệu hóa
+      
+      closeViewer.addEventListener('click', closeFullscreenViewer);
+      imageViewer.addEventListener('click', (e) => {
+        if (e.target === imageViewer) { // Chỉ đóng khi click vào nền mờ, không phải ảnh
+          closeFullscreenViewer();
+        }
+      });
+
+      // Cố gắng phát nhạc khi người dùng cuộn hoặc click lần đầu
+      const tryPlayMusic = () => {
+        if (!musicPlaying && music.paused) {
+            music.play().then(() => {
+                musicPlaying = true;
+                musicToggle.textContent = '🎵';
+            }).catch(e => {
+                // Vẫn không play được, giữ nguyên trạng thái
+            });
+        }
+        // Gỡ bỏ event listener sau lần thử đầu tiên để không gọi lại nhiều lần
+        document.removeEventListener('click', tryPlayMusic);
+        document.removeEventListener('scroll', tryPlayMusic);
+      };
+
+      document.addEventListener('click', tryPlayMusic);
+      document.addEventListener('scroll', tryPlayMusic, { once: true }); // Thử khi cuộn
+
+    });
+  </script>
+</body>
+</html>
